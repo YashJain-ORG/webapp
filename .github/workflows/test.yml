@@ -1,0 +1,31 @@
+name: CI for Node.js
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: integration
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout/@v3
+
+      - name: Use Node.js Dependencies
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Execute exit 1 for failure testing
+        if: failure()
+        run: exit 1
+
+      - name: Print on Success
+        if: ${{ success() }}
+        run: echo "The workflow run was successfull."
