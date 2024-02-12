@@ -30,6 +30,3 @@ jobs:
 
       - name: Run and Print Hello world
         run: echo "Hello World"
-
-      - name: Run and Print Hello world
-        run: exit 1
