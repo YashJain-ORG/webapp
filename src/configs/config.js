@@ -1,9 +1,11 @@
-
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
 // For postgress
-const sequelize = new Sequelize(process.env.DATABASE, process.env.DB_Name, process.env.PASSWORD, {
+const sequelize = new Sequelize(
+  process.env.DATABASE,
+  process.env.DB_Name,
+  process.env.PASSWORD, {
   host: process.env.HOST,
   dialect: 'postgres',
   logging: false,
@@ -31,7 +33,3 @@ db.Sequelize=Sequelize;
 db.Users= require('../models/userModels')(sequelize,Sequelize);
 
 module.exports = db;
-  
-
-  
-

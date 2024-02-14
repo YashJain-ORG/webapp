@@ -1,4 +1,3 @@
-
 const express = require('express');
 const db = require('../configs/config');
 const User =db.Users;
@@ -9,10 +8,13 @@ const app = express();
 
 //create User
 function createUser(req, resp) {
+  console.log('inside create User');
+  //console.log(req);
   const allowedParams = ['email', 'password', 'lastName', 'firstName'];
 
   // Checking if the request body contains only allowed parameters
   const additionalParams = Object.keys(req.body).filter(key => !allowedParams.includes(key));
+  console.log(additionalParams);
   if (additionalParams.length > 0) {
     console.log("Error part - Invalid parameters:", additionalParams);
     return resp.status(400).send({
@@ -31,6 +33,7 @@ function createUser(req, resp) {
   // Validating email format using a regular expression
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(req.body.email)) {
+    console.log("email")
     return resp.status(400).send({
       Message: "Invalid email format"
     });
@@ -39,6 +42,7 @@ function createUser(req, resp) {
   // Validating password format (at least 8 characters long and containing at least one uppercase letter, one lowercase letter, one digit, and one special character)
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   if (!passwordRegex.test(req.body.password)) {
+    console.log("pass")
     return resp.status(400).send({
       Message: "Invalid password format"
     });
@@ -102,13 +106,15 @@ const searchUser = (req, resp) => {
     console.log(password);
     // Validate username and password
     if (!username || !password || username.trim() === '' || password.trim() === '') {
+      console.log('validate');
       return resp.status(400).send({ message: 'Username or password missing or empty' });
     }
-    
+
     User.findByPk(username, {
       attributes: ['id', 'firstName', 'lastName', 'email', 'account_created','account_updated'],
     }).then(data => {
       if (!data) {
+        console.log("chceking data");
         return resp.status(404).send({ message: 'User not found' });
       }
       resp.status(200).send(data);
@@ -145,12 +151,13 @@ const updateUser=(req,resp)=>{
   if (!req.body.password || req.body.password.trim() === '') {
     return resp.status(400).send({ message: 'Password is missing or empty' });
   }
-  
+
   bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
       if (err) {
         console.error('Error hashing password:', err);
         return resp.status(500).send('Internal Server Error');
       }
+      console.log("testing")
       const currentDate = new Date();
       const updateData = {
         firstName: req.body.firstName,
@@ -160,7 +167,7 @@ const updateUser=(req,resp)=>{
       };
       User.update(updateData,
         {where:{email:username}}).then(()=>{
-          resp.status(201).json({
+          resp.status(204).json({
             Message: `User Updated successfully!!  ${username}`
           });
         }).catch(error=>{

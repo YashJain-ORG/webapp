@@ -7,7 +7,7 @@ module.exports=(sequelize,Sequelize)=>{
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4, // Use the uuid module to generate a UUID
       readOnly: true,
-     
+
     },
     email: {
       type: Sequelize.STRING,
