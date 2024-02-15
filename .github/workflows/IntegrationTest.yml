@@ -63,7 +63,7 @@ jobs:
       - name: Create Users table
         run: |
           sudo -u postgres psql -c "CREATE TABLE Users (
-             id UNIQUE NOT NULL,
+             id NOT NULL,
              email VARCHAR(255) PRIMARY KEY,
              password VARCHAR(255) NOT NULL,
              firstName VARCHAR(255) NOT NULL,
