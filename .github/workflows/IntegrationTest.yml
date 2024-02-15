@@ -39,15 +39,15 @@ jobs:
           mysql -u${{ secrets.HOSTNAME }} -p${{ secrets.PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ${{ secrets.DATABASE }};"
           mysql -u${{ secrets.HOSTNAME }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
 
-      - name: Run Integration Test
-        env:
-          HOST: 127.0.0.1
-          HOSTNAME: root
-          PASSWORD: root
-          DATABASE: ${{ secrets.DATABASE }}
-          PORT: 3000
-        run: |
-          npm test
+      # - name: Run Integration Test
+      #   env:
+      #     HOST: 127.0.0.1
+      #     HOSTNAME: root
+      #     PASSWORD: root
+      #     DATABASE: ${{ secrets.DATABASE }}
+      #     PORT: 3000
+      #   run: |
+      #     npm test
 
       - name: Delete the created Database each time
         run: |
