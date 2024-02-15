@@ -2,14 +2,14 @@ const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
 // For postgress
-const sequelize = new Sequelize(
-  process.env.DATABASE,
-  process.env.DB_Name,
-  process.env.PASSWORD, {
-  host: process.env.HOST,
-  dialect: 'postgres',
-  logging: false,
-});
+// const sequelize = new Sequelize(
+//   process.env.DATABASE,
+//   process.env.DB_Name,
+//   process.env.PASSWORD, {
+//   host: process.env.HOST,
+//   dialect: 'postgres',
+//   logging: false,
+// });
 
 // // For postgress
 // const sequelize = new Sequelize('mydb', 'postgres', 'password', {
@@ -18,12 +18,15 @@ const sequelize = new Sequelize(
 //   logging: false,
 // });
 
-// for MySQL
-// const sequelize = new Sequelize('mydb', 'root', 'password', {
-//   host: 'localhost',
-//   dialect: 'mysql',
-//   logging: false,
-// });
+//for MySQL
+const sequelize = new Sequelize(
+  process.env.DATABASE, //'mydb',
+  process.env.HostName, //'root',
+  process.env.PASSWORD,{ //'password', 
+  host: 'localhost',
+  dialect: 'mysql',
+  logging: false,
+});
 
 const db ={}
 db.sequelize=sequelize
