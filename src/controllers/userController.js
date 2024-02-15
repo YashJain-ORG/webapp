@@ -12,7 +12,7 @@ function createUser(req, resp) {
   //console.log(req);
   const allowedParams = ['email', 'password', 'lastName', 'firstName'];
 
-  // Checking if the request body contains only allowed parameters
+  // Checking if the request body contains only allowed parametersasd
   const additionalParams = Object.keys(req.body).filter(key => !allowedParams.includes(key));
   console.log(additionalParams);
   if (additionalParams.length > 0) {
@@ -69,7 +69,7 @@ function createUser(req, resp) {
           password: hash
         };
 
-        // Creating the user in the database
+        // Creating the user in the databases
         User.create(userObject)
           .then(data => {
             resp.status(201).json({

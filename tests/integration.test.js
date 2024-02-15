@@ -11,7 +11,7 @@ function generateRandomEmail() {
     for (let i = 0; i < 10; i++) {
       email += characters.charAt(Math.floor(Math.random() * characters.length));
     }
-    email += '@example.com'; // You can change the domain if needed
+    email += '@example.com'; 
     return email;
   }
   
