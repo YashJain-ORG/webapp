@@ -41,10 +41,10 @@ jobs:
 
       - name: Run Integration Test
         env:
-          HOST: ${{ secrets.HOST }}
-          HOSTNAME: ${{ secrets.HOSTNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          DATABASE: ${{ secrets.DATABASE }}
+          HOST: 127.0.0.1
+          HOSTNAME: root
+          PASSWORD: root
+          DATABASE: mydb
           PORT: 3000
         run: |
           npm test
