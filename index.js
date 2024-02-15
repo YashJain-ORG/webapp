@@ -51,11 +51,12 @@ app.get('/v1/user/self',authMiddle.checkUrlz,authMiddle.authenticationMiddleware
 
 app.put('/v1/user/self',authMiddle.authenticationMiddleware,async(req,resp)=>{
   try {
+    console.log("update User");
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
     await controller.updateUser(req, resp);
   } catch (error) {
-    console.error(error.message);
+    console.log(error.message);
     resp.status(503).send();
   }
 })
@@ -71,11 +72,12 @@ app.all('/v1/user/self', async(req,resp)=>{
 
 app.post('/v1/user',authMiddle.checkUrl, async (req, resp) => {
   try {
+    console.log("post here");
     await sequelize.authenticate();
     console.log("here")
     await controller.createUser(req, resp);
   } catch (error) {
-    console.error(error.message);
+    console.log(error.message);
     resp.status(503).send();
   }
 });
