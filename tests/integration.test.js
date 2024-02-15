@@ -14,7 +14,7 @@ describe("TEST 1: Integration testing for createUser API",()=>{
                 "firstName": "Test",
                 "lastName": "Test",
                 "password": "Test@123",
-                "email": "ayaastea@hotmail.com"
+                "email": "ateatss@hotmail.com"
             };
         const postUserResp = await request(app).post("/v1/user").send(reqBody);
         console.log(postUserResp.body);
@@ -39,7 +39,7 @@ describe("TEST 2: Integration testing for UpdateUser API",()=>{
                 "lastName": "ZXC",
                 "password": "ABCDas@123"
             };
-        const email="ayaastea@hotmail.com";
+        const email="ateatss@hotmail.com";
         const password ="Test@123";
 
         const base64Token = Buffer.from(`${email}:${password}`).toString('base64');
