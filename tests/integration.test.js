@@ -5,7 +5,7 @@ require('dotenv').config();
 beforeAll(async()=>{
 
 })
-let Ranemail='aytezzz@hotmail.com';
+let Ranemail='aytzz@hotmail.com';
 let Ranpassword='Test@123'
 describe("TEST 1: Integration testing for createUser API",()=>{
     test("create an account and validate the get request", async()=>{
@@ -14,7 +14,7 @@ describe("TEST 1: Integration testing for createUser API",()=>{
                 "firstName": "Test",
                 "lastName": "Test",
                 "password": "Test@123",
-                "email": "aytezzz@hotmail.com"
+                "email": "ayaastea@hotmail.com"
             };
         const postUserResp = await request(app).post("/v1/user").send(reqBody);
         console.log(postUserResp.body);
@@ -39,8 +39,8 @@ describe("TEST 2: Integration testing for UpdateUser API",()=>{
                 "lastName": "ZXC",
                 "password": "ABCDas@123"
             };
-        const email=Ranemail;
-        const password =Ranpassword;
+        const email="ayaastea@hotmail.com";
+        const password ="Test@123";
 
         const base64Token = Buffer.from(`${email}:${password}`).toString('base64');
         const putUserResp = await request(app).put("/v1/user/self").set("Authorization", `Basic ${base64Token}`).send(reqsBody1);
