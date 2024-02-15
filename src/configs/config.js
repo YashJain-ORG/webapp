@@ -21,7 +21,7 @@ require('dotenv').config();
 //for MySQL
 const sequelize = new Sequelize(
   process.env.DATABASE, //'mydb',
-  process.env.HostName, //'root',
+  process.env.HOSTNAME, //'root',
   process.env.PASSWORD,{ //'password', 
   host: 'localhost',
   dialect: 'mysql',

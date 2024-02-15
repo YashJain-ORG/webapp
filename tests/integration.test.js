@@ -5,7 +5,18 @@ require('dotenv').config();
 beforeAll(async()=>{
 
 })
-let Ranemail='aytzzu@hotmail.com';
+function generateRandomEmail() {
+    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let email = '';
+    for (let i = 0; i < 10; i++) {
+      email += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    email += '@example.com'; // You can change the domain if needed
+    return email;
+  }
+  
+  console.log(generateRandomEmail());
+let Ranemail=generateRandomEmail();
 let Ranpassword='Test@123'
 describe("TEST 1: Integration testing for createUser API",()=>{
     test("create an account and validate the get request", async()=>{
@@ -14,7 +25,7 @@ describe("TEST 1: Integration testing for createUser API",()=>{
                 "firstName": "Test",
                 "lastName": "Test",
                 "password": "Test@123",
-                "email": "ateatssyyyu@hotmail.com"
+                "email": Ranemail
             };
         const postUserResp = await request(app).post("/v1/user").send(reqBody);
         console.log(postUserResp.body);
@@ -39,7 +50,7 @@ describe("TEST 2: Integration testing for UpdateUser API",()=>{
                 "lastName": "ZXC",
                 "password": "ABCDas@123"
             };
-        const email="ateatssyyyu@hotmail.com";
+        const email= Ranemail;
         const password ="Test@123";
 
         const base64Token = Buffer.from(`${email}:${password}`).toString('base64');
