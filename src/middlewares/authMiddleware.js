@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 var passHash;
 const bcrypt = require('bcrypt');
 
-//**************** Middleware Start ********************* */
+//**************** Middleware Start ********************* *s/
 const authenticationMiddleware = async (req, res, next) => {
   console.log("authenticationMiddleware");
 
@@ -17,7 +17,7 @@ const authenticationMiddleware = async (req, res, next) => {
   if (!req.get('Authorization')) {
     console.log("not Authorization");
     const err = new Error('Not Authenticated!');
-    // Set status code to '401 Unauthorized' and 'WWW-Authenticate' header to 'Basic'
+    // Set status code to '401 Unauthorized' and 'WWW-Authenticate' header to 'Basic'as
     res.status(401).set('WWW-Authenticate', 'Basic').json({ error: err.message });
     return next(err);
   }
@@ -28,7 +28,7 @@ const authenticationMiddleware = async (req, res, next) => {
   var password = credentials[1];
   console.log(username);
   try {
-    // Simulate an asynchronous operation, such as checking credentials in a database
+    // Simulate an asynchronous operation, such as checking credentials in a database as
     const isValidCredentials = await validateCredentials(username, password);
     console.log(`isValidCredentials -------->  ${isValidCredentials}`)
     if (!isValidCredentials) {
