@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize,Sequelize } = require("./src/configs/config.js")
+const { sequelize,Sequelize } = require ("./src/configs/config.js")
 const app = express();
 const bodyParser = require('body-parser');
 const PORT= 3000;
@@ -15,7 +15,8 @@ app.use(bodyParser.json());
 
 var passHash;
 const bcrypt = require('bcrypt');
-//Create Table if Not Exist..
+//Create Table if Not Exist.. 
+//asdf
 db.sequelize.sync();
 
 //************************ Healthz ******************************* */

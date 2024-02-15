@@ -42,7 +42,7 @@ const authenticationMiddleware = async (req, res, next) => {
     //res.status(200);
     next();
   } catch (error) {
-    console.error('Error during authentication:', error);
+    console.log('Error during authentication:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
