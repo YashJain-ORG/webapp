@@ -12,8 +12,8 @@ describe("TEST 1: Integration testing for createUser API",()=>{
             {
                 "firstName": "Test",
                 "lastName": "Test",
-                "password": Ranpassword,
-                "email": Ranemail
+                "password": "Test@123",
+                "email": "aytezzz@hotmail.com"
             };
         const postUserResp = await request(app).post("/v1/user").send(reqBody);
         console.log(postUserResp.body);
