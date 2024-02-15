@@ -39,23 +39,23 @@ jobs:
 
       - name: Create Database
         run: |
-          mysql -u${{ secrets.DB_NAME }} -p${{ secrets.PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ${{ secrets.DATABASE }};"
-          mysql -u${{ secrets.DB_NAME }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
+          mysql -u${{ secrets.HOSTNAME }} -p${{ secrets.PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ${{ secrets.DATABASE }};"
+          mysql -u${{ secrets.HOSTNAME }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
 
       - name: Run Integration Test
         env:
           HOST: ${{ secrets.HOST }}
-          DB_USERNAME: ${{ secrets.DB_NAME }}
+          HOSTNAME: ${{ secrets.HOSTNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
           DATABASE: ${{ secrets.DATABASE }}
-          PORT: 3307
+          PORT: 3000
         run: |
           cd Dipti_Shevalekar_002245703_01
           npm test
 
       - name: Delete the created Database each time
         run: |
-          mysql -u${{ secrets.DB_NAME }} -p${{ secrets.PASSWORD }} -e "DROP DATABASE ${{ secrets.DATABASE }}"
+          mysql -u${{ secrets.HOSTNAME }} -p${{ secrets.PASSWORD }} -e "DROP DATABASE ${{ secrets.DATABASE }}"
 
       - name: Execute exit 1 for failure testing
         if: failure()
@@ -64,65 +64,3 @@ jobs:
       - name: Print on Success
         if: ${{ success() }}
         run: echo "The workflow run was successfull."
-
-      # - name: Install PostgreSQL
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install postgresql postgresql-contrib
-
-      # - name: Start PostgreSQL service
-      #   run: |
-      #     sudo service postgresql start
-
-      # - name: Check PostgreSQL status
-      #   run: |
-      #     sudo service postgresql status
-
-      # - name: Install PostgreSQL client
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install postgresql-client
-
-      # # - name: Create PostgreSQL Database
-      # #   env:
-      # #     HOST: ${{ secrets.HOST }}
-      # #     DATABASE: ${{ secrets.DATABASE }}
-      # #     DB_Name: ${{ secrets.DB_NAME }}
-      # #     PASSWORD: ${{ secrets.PASSWORD }}
-      # #   run: |
-      # #     psql -h${{ secrets.HOST }}-U${{ secrets.DB_NAME }} -d${{ secrets.DATABASE }}-c "CREATE DATABASE ${{ secrets.DATABASE }};"
-
-      # - name: Update postgres user password
-      #   run: |
-      #     sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
-
-      # - name: Create Users table
-      #   run: |
-      #     sudo -u postgres psql -c "CREATE TABLE Users (
-      #        id SERIAL,
-      #        email VARCHAR(255) PRIMARY KEY,
-      #        password VARCHAR(255) NOT NULL,
-      #        firstName VARCHAR(255) NOT NULL,
-      #        lastName VARCHAR(255) NOT NULL,
-      #        account_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      #        account_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      #        createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      #        updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-      #      );"
-
-      # - name: Run tests
-      #   env:
-      #     HOST: ${{ secrets.HOST }}
-      #     DATABASE: ${{ secrets.DATABASE }}
-      #     DB_Name: ${{ secrets.DB_NAME }}
-      #     PASSWORD: ${{ secrets.PASSWORD }}
-      #   run: |
-      #     npm test
-
-      # - name: Execute exit 1 for failure testing
-      #   if: failure()
-      #   run: exit 1
-
-      # - name: Print on Success
-      #   if: ${{ success() }}
-      #   run: echo "The workflow run was successfull."
