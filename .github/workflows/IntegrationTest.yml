@@ -60,6 +60,24 @@ jobs:
         run: |
           sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
 
+      - name: Create Users table
+        env:
+          HOST: ${{ secrets.HOST }}
+          DB_Name: ${{ secrets.DB_NAME }}
+          DATABASE: ${{ secrets.DATABASE }}
+        run: |
+          psql -h $HOST -U $DB_Name -d $DATABASE -c "CREATE TABLE Users (
+            id UNIQUE NOT NULL,
+            email VARCHAR(255) PRIMARY KEY,
+            password VARCHAR(255) NOT NULL,
+            firstName VARCHAR(255) NOT NULL,
+            lastName VARCHAR(255) NOT NULL,
+            account_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            account_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+          );"
+
       - name: Run tests
         env:
           HOST: ${{ secrets.HOST }}
