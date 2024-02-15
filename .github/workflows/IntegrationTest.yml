@@ -31,12 +31,12 @@ jobs:
 
       - name: Install PostgreSQL
         run: |
-            sudo apt-get update
-            sudo apt-get install postgresql postgresql-contrib  
+          sudo apt-get update
+          sudo apt-get install postgresql postgresql-contrib
 
       - name: Start PostgreSQL service
         run: |
-            sudo service postgresql start
+          sudo service postgresql start
 
       - name: Check PostgreSQL status
         run: |
@@ -47,14 +47,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install postgresql-client
 
-      - name: Create PostgreSQL Database
-        env:
-          HOST: ${{ secrets.HOST }}
-          DATABASE: ${{ secrets.DATABASE }}
-          DB_Name: ${{ secrets.DB_NAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-        run: |
-          psql -h $HOST -U $DB_Name -d $DATABASE -c "CREATE DATABASE ${{ secrets.DATABASE }};"    
+      # - name: Create PostgreSQL Database
+      #   env:
+      #     HOST: ${{ secrets.HOST }}
+      #     DATABASE: ${{ secrets.DATABASE }}
+      #     DB_Name: ${{ secrets.DB_NAME }}
+      #     PASSWORD: ${{ secrets.PASSWORD }}
+      #   run: |
+      #     psql -h${{ secrets.HOST }}-U${{ secrets.DB_NAME }} -d${{ secrets.DATABASE }}-c "CREATE DATABASE ${{ secrets.DATABASE }};"
 
       - name: Run tests
         env:
