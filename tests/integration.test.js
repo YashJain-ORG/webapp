@@ -4,7 +4,7 @@ const {app} = require('../index.js');
 beforeAll(async()=>{
 
 })
-let Ranemail='ayteosaass@hotmail.com';
+let Ranemail='aytezzz@hotmail.com';
 let Ranpassword='Test@123'
 describe("TEST 1: Integration testing for createUser API",()=>{
     test("create an account and validate the get request", async()=>{
