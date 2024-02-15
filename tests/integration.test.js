@@ -1,5 +1,6 @@
 const request = require('supertest');
 const {app} = require('../index.js');
+require('dotenv').config();
 
 beforeAll(async()=>{
 
