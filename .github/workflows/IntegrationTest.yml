@@ -44,7 +44,7 @@ jobs:
           HOST: 127.0.0.1
           HOSTNAME: root
           PASSWORD: root
-          DATABASE: Users
+          DATABASE: ${{ secrets.DATABASE }}
           PORT: 3000
         run: |
           npm test
