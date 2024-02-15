@@ -56,6 +56,10 @@ jobs:
       #   run: |
       #     psql -h${{ secrets.HOST }}-U${{ secrets.DB_NAME }} -d${{ secrets.DATABASE }}-c "CREATE DATABASE ${{ secrets.DATABASE }};"
 
+      - name: Update postgres user password
+        run: |
+          sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
+
       - name: Run tests
         env:
           HOST: ${{ secrets.HOST }}
@@ -63,7 +67,6 @@ jobs:
           DB_Name: ${{ secrets.DB_NAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: |
-          psql -h ${{ secrets.HOST }} -U ${{ secrets.DB_NAME }} -d ${{ secrets.DATABASE }} -c "ALTER USER postgres PASSWORD 'postgres';"
           npm test
 
       - name: Execute exit 1 for failure testing
