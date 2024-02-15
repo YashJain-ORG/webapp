@@ -50,7 +50,6 @@ jobs:
           DATABASE: ${{ secrets.DATABASE }}
           PORT: 3000
         run: |
-          cd Dipti_Shevalekar_002245703_01
           npm test
 
       - name: Delete the created Database each time
