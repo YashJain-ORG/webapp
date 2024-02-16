@@ -3,7 +3,12 @@ const {app} = require('../index.js');
 require('dotenv').config();
 
 beforeAll(async()=>{
-
+    try {
+        await sequelize.sync({ force: true });
+        console.log('Database synced successfully');
+      } catch (error) {
+        console.error('Error syncing database:', error);
+      }
 })
 function generateRandomEmail() {
     const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
