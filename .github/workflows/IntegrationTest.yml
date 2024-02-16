@@ -40,6 +40,7 @@ jobs:
           mysql -u${{ secrets.HOSTNAME }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
 
       - name: Run Integration Test
+
         # run: npm install
         env:
           HOST: 127.0.0.1
@@ -49,6 +50,7 @@ jobs:
           PORT: 3000
         run: |
           npm test
+
 
       - name: Delete the created Database each time
         run: |
