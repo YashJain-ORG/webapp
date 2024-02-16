@@ -7,7 +7,7 @@ beforeAll(async()=>{
         await sequelize.sync({ force: true });
         console.log('Database synced successfully');
       } catch (error) {
-        console.error('Error syncing database:', error);
+        console.log('Error syncing database:', error);
       }
 })
 function generateRandomEmail() {
