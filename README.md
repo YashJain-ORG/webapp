@@ -18,7 +18,7 @@ This project implements a user management API using Express.js and Sequelize ORM
 - pg
 - pg-hstore
 - sequelize
-- test
+- supertest
   
 # Steps to deploy it locally.
 
