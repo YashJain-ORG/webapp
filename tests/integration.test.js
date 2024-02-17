@@ -37,7 +37,7 @@ describe("TEST 1: Integration testing for createUser API",()=>{
             };
         const postUserResp = await request(app).post("/v1/user").send(reqBody);
         console.log(postUserResp.body);
-        await expect(postUserResp.statusCode).toBe(204);
+        await expect(postUserResp.statusCode).toBe(201);
         expect(postUserResp.body.id).toBeTruthy();
 
         const base64Token = Buffer.from(`${reqBody.email}:${reqBody.password}`).toString('base64');
