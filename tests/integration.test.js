@@ -3,6 +3,8 @@ const {app} = require('../index.js');
 const { sequelize,Sequelize } = require ("../src/configs/config.js")
 require('dotenv').config();
 
+const { sequelize,Sequelize } = require ("../src/configs/config.js")
+
 beforeAll(async()=>{
     try {
         await sequelize.sync({});
