@@ -1,11 +1,11 @@
 const request = require('supertest');
 const {app} = require('../index.js');
-const { sequelize,Sequelize } = require ("./src/configs/config.js")
+const { sequelize,Sequelize } = require ("../src/configs/config.js")
 require('dotenv').config();
 
 beforeAll(async()=>{
     try {
-        await sequelize.sync({ force: true });
+        await sequelize.sync({});
         console.log('Database synced successfully');
       } catch (error) {
         console.log('Error syncing database:', error);
@@ -45,6 +45,7 @@ describe("TEST 1: Integration testing for createUser API",()=>{
         console.log(postUserResp.body.id);
         expect (getUserResp.statusCode).toBe(200);
         expect (getUserResp.body.id).toBe(postUserResp.body.id);
+        return;
     });
 });
 
@@ -71,9 +72,17 @@ describe("TEST 2: Integration testing for UpdateUser API",()=>{
         //console.log(postUserResp.body.id);
         expect (getUserResp.statusCode).toBe(200);
         // expect (getUserResp.body.id).toBe(postUserResp.body.id);
+        return;
     });
 });
 
-afterAll(() => {
-  console.log("Test Completed");
+afterAll(async() => {
+  // Run sequelize.close() after finishing the tests
+
+  try {
+    await sequelize.close();
+    console.log('Database connection closed successfully');
+  } catch (error) {
+    console.error('Error closing database connection:', error);
+  }
 });
