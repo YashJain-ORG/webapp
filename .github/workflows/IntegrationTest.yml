@@ -36,28 +36,28 @@ jobs:
 
       - name: Create Database
         run: |
-          mysql -u${{ secrets.HOSTNAME }} -p${{ secrets.PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ${{ secrets.DATABASE }};"
-          mysql -u${{ secrets.HOSTNAME }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
+          mysql -u${{secrets.HOSTNAME}} -p${{secrets.PASSWORD}} -e "CREATE DATABASE IF NOT EXISTS ${{secrets.DATABASE}};"
+          mysql -u${{ secrets.HOSTNAME}} -p${{secrets.PASSWORD}} -e "USE ${{secrets.DATABASE}};" || exit 1
 
       - name: Run Integration Test
-        run: npm install
-        # env:
-        #   HOST: 127.0.0.1
-        #   HOSTNAME: root
-        #   PASSWORD: root
-        #   DATABASE: ${{ secrets.DATABASE }}
-        #   PORT: 3000
-        # run: |
-        #   npm test
+        # run: npm install
+        env:
+          HOST: 127.0.0.1
+          HOSTNAME: root
+          PASSWORD: root
+          DATABASE: ${{secrets.DATABASE}}
+          PORT: 3000
+        run: |
+          npm test
 
       - name: Delete the created Database each time
         run: |
-          mysql -u${{ secrets.HOSTNAME }} -p${{ secrets.PASSWORD }} -e "DROP DATABASE ${{ secrets.DATABASE }}"
+          mysql -u${{secrets.HOSTNAME}} -p${{secrets.PASSWORD}} -e "DROP DATABASE ${{secrets.DATABASE}}"
 
       - name: Execute exit 1 for failure testing
         if: failure()
         run: exit 1
 
       - name: Print on Success
-        if: ${{ success() }}
+        if: ${{success()}}
         run: echo "The workflow run was successfull."
