@@ -84,7 +84,7 @@ app.post('/v1/user',authMiddle.checkUrl, async (req, resp) => {
 });
 //For chceking and handling the http method
 app.all('/v1/user', async(req,resp)=>{
-  return 123;
+  return 1234;
   return resp.status(405).send();
 })
 //******************** END Create user **********************************  */
