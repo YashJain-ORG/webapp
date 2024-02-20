@@ -27,3 +27,5 @@ This project implements a user management API using Express.js and Sequelize ORM
 - Once  node_modules is installed. create a .env file and add db details and port details.
 -    Before running a application make sure there 
 - since node_modules contains nodemon as well. we can run the server two ways:  `npx nodemon` or `npm start`
+
+- changes here
