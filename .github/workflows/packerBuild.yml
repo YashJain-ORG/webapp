@@ -1,4 +1,4 @@
-name: packerbuild.js
+name: build.js
 
 on:
   push:
