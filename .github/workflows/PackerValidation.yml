@@ -1,0 +1,46 @@
+name: build.js
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Packer
+        run: |
+          wget https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip
+          unzip packer_1.7.5_linux_amd64.zip
+          sudo mv packer /usr/local/bin/
+
+      - name: Check Packer fmt
+        id: fmt
+        run: |
+          set -e
+          packer fmt -check .
+
+      - name: Check Packer validate
+        id: validate
+        run: |
+          set -e
+          packer validate .
+
+      - name: Check for fmt changes
+        run: |
+          if [ "${{ steps.fmt.outcome }}" == "failure" ]; then
+            echo "Packer fmt modified files. Please run 'packer fmt' and commit the changes."
+            exit 1
+          fi
+
+      - name: Check validate result
+        run: |
+          if [ "${{ steps.validate.outcome }}" == "failure" ]; then
+            echo "Packer validation failed. Please fix the errors."
+            exit 1
+          fi
