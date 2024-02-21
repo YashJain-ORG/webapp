@@ -24,11 +24,15 @@ jobs:
 
       - name: Check Packer fmt
         id: fmt
-        run: packer fmt -check packer-GCP/packer-GCP.pkr.hcl
+        run: |
+          echo pwd
+          echo ls -la
+          exit 1
+          packer fmt -check ./packer-GCP/packer-GCP.pkr.hcl
 
       - name: Check Packer validate
         id: validate
-        run: packer validate packer-GCP/packer-GCP.pkr.hcl
+        run: packer validate ./packer-GCP/packer-GCP.pkr.hcl
 
       - name: Check for fmt changes
         run: |
