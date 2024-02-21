@@ -1,7 +1,7 @@
 const express = require('express');
 const db = require('../configs/config');
 const User =db.Users;
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 const app = express();

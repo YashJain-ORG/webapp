@@ -6,7 +6,7 @@ const User =db.Users;
 app.use(bodyParser.json());
 
 var passHash;
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 //**************** Middleware Start ********************* *s/
 const authenticationMiddleware = async (req, res, next) => {
