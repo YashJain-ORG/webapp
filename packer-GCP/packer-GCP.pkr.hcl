@@ -23,10 +23,10 @@ build {
   //   source      = "./test.log"
   //   destination = "/tmp/test.log"
   // }
-  provisioner "file" {
-    source      = "webapp.zip"
-    destination = "~/webapp.zip"
-  }
+  // provisioner "file" {
+  //   source      = "webapp.zip"
+  //   destination = "~/webapp.zip"
+  // }
 
   provisioner "shell" {
     script = "packer-GCP/setup.sh"
