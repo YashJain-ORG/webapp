@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 
 var passHash;
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 //Create Table if Not Exist.. 
 //asdf
 db.sequelize.sync();
