@@ -28,6 +28,6 @@ build {
   //   destination = "~/webapp/webapp-main.zip"
   // }
   provisioner "shell" {
-    script = "./install_dependencies.sh"
+    script = "./setup.sh"
   }
 }
