@@ -37,7 +37,7 @@ echo "+-------------------------------------------------------------+"
 echo "creating user and group"
 sudo groupadd csye6225
 sudo useradd -g csye6225 -d /opt/csye6225 -s /usr/sbin/nologin csye6225
-
+sudo chmod o+rx /opt/csye6225
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
 echo "|                Installing unzipp...                          |"
@@ -51,8 +51,9 @@ sudo yum install -y unzip
 echo "check webapp in home directory"
 ls
 echo "cp webapp to user home directory"
+
 sudo cp -r  webapp.zip /opt/csye6225
-sudo chmod o+rx /opt/csye6225
+
 cd /opt/csye6225
 echo "unzip in opt/csye6225"
 sudo unzip webapp.zip
