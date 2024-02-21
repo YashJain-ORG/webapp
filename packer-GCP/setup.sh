@@ -31,7 +31,7 @@ sudo yum -y install nodejs npm
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
-echo "|                creating user and groups                      |"
+echo "|                creating user and groups                     |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "creating user and group"
@@ -40,7 +40,7 @@ sudo useradd -g csye6225 -d /opt/csye6225 -s /usr/sbin/nologin csye6225
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
-echo "|                Installing unzip...                          |"
+echo "|                Installing unzipp...                          |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "Installing unzip..."
