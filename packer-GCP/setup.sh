@@ -46,19 +46,20 @@ echo "+-------------------------------------------------------------+"
 echo "Installing unzip..."
 sudo yum install -y unzip
 
-sudo -u csye6225 bash
+# sudo -u csye6225 bash
 
 echo "check webapp in home directory"
 ls
 echo "cp webapp to user home directory"
 sudo cp -r  webapp.zip /opt/csye6225
+sudo chmod o+rx /opt/csye6225
 cd /opt/csye6225
 echo "unzip in opt/csye6225"
 sudo unzip webapp.zip
 
 echo "----Checking if the file exists----"
 ls 
-sudo chmod o+rx /opt/csye6225
+
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
 echo "|                    Install Node Modules                     |"
@@ -69,7 +70,6 @@ cd webapp
 
 sudo npm install
 
-# sudo unzip webapp-fork.zip -d ~/webapp-fork
 echo "MySQL and npm installation completed."
 
 
