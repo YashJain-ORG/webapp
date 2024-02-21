@@ -46,6 +46,8 @@ echo "+-------------------------------------------------------------+"
 echo "Installing unzip..."
 sudo yum install -y unzip
 
+sudo -u csye6225 bash
+
 echo "check webapp in home directory"
 ls
 echo "cp webapp to user home directory"
@@ -56,7 +58,7 @@ sudo unzip webapp.zip
 
 echo "----Checking if the file exists----"
 ls 
-
+sudo chmod o+rx /opt/csye6225
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
 echo "|                    Install Node Modules                     |"
