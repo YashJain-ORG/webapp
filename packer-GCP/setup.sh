@@ -12,7 +12,7 @@ sudo yum install nodejs npm -y
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
-echo "|                Install mysql-server and service             |"
+echo "|                Install mysql-server and services             |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 
@@ -31,7 +31,7 @@ sudo yum -y install nodejs npm
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
-echo "|                creating user and group                      |"
+echo "|                creating user and groups                      |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "creating user and group"
