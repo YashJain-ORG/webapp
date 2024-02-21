@@ -22,13 +22,9 @@ jobs:
       - name: Run packer init
         run: packer init packer-GCP/packer-GCP.pkr.hcl
 
-      # - name: Check Packer fmt
-      #   id: fmt
-      #   run: |
-      #     echo pwd
-      #     echo ls -la
-      #     exit 1
-      #     packer fmt -check ./packer-GCP/packer-GCP.pkr.hcl
+      - name: Check Packer fmt
+        id: fmt
+        run: packer fmt -check packer-GCP/packer-GCP.pkr.hcl
 
       - name: Check Packer validate
         id: validate
