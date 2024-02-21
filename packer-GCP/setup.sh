@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo yum update
-sudo yum -y install @mysql
+sudo yum -y install mysql
 sudo systemctl start mysqld.service
 
 echo "Starting MySQL Service..."
