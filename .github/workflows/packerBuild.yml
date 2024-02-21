@@ -13,8 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Zip Web App
-      #   run: zip -r webapp.zip .
+      - name: Zip Web App
+        run: zip -r webapp.zip .
 
       - name: Set up Packer
         run: |
