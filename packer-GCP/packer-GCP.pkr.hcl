@@ -19,10 +19,6 @@ source "googlecompute" "example" {
 
 build {
   sources = ["googlecompute.example"]
-  // provisioner "file" {
-  //   source      = "./test.log"
-  //   destination = "/tmp/test.log"
-  // }
   provisioner "file" {
     source      = "webapp.zip"
     destination = "~/webapp.zip"
