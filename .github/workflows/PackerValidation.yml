@@ -13,26 +13,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run packer init
-        run: packer init packer-GCP/packer-GCP.pkr.hcl
-
       - name: Install Packer
         run: |
           wget https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip
           unzip packer_1.7.5_linux_amd64.zip
           sudo mv packer /usr/local/bin/
 
-      - name: Check Packer fmt
-        id: fmt
-        run: |
-          echo pwd
-          echo ls -la
-          exit 1
-          packer fmt -check ./packer-GCP/packer-GCP.pkr.hcl
+      - name: Run packer init
+        run: packer init packer-GCP/packer-GCP.pkr.hcl
+
+      # - name: Check Packer fmt
+      #   id: fmt
+      #   run: |
+      #     echo pwd
+      #     echo ls -la
+      #     exit 1
+      #     packer fmt -check ./packer-GCP/packer-GCP.pkr.hcl
 
       - name: Check Packer validate
         id: validate
-        run: packer validate ./packer-GCP/packer-GCP.pkr.hcl
+        run: packer validate packer-GCP/packer-GCP.pkr.hcl
 
       - name: Check for fmt changes
         run: |
