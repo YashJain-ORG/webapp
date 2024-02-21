@@ -26,6 +26,9 @@ jobs:
         id: fmt
         run: packer fmt -check packer-GCP/packer-GCP.pkr.hcl
 
+      - name: Zip Web App
+        run: zip -r webapp.zip ../webapps
+
       - name: Check Packer validate
         id: validate
         run: packer validate packer-GCP/packer-GCP.pkr.hcl
