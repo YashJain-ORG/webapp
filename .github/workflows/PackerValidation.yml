@@ -1,4 +1,4 @@
-name: PackerValidation.js
+name: build.js
 
 on:
   pull_request:

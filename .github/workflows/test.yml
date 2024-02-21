@@ -1,4 +1,4 @@
-name: test.js
+name: build.js
 
 on:
   push:
