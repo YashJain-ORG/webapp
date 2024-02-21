@@ -28,6 +28,6 @@ build {
   //   destination = "~/webapp/webapp-main.zip"
   // }
   provisioner "shell" {
-    script = "./setup.sh"
+    script = "packer-GCP/setup.sh"
   }
 }
