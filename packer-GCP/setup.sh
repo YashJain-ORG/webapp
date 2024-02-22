@@ -69,6 +69,7 @@ echo "+-------------------------------------------------------------+"
 echo "cd to webapp to install node modules"
 cd /opt/csye6225/webapp
 
+
 sudo npm install npm@latest
 
 echo "MySQL and npm installation completed."
