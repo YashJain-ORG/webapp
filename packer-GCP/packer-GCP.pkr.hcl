@@ -10,9 +10,9 @@ packer {
 source "googlecompute" "example" {
   project_id          = "assignment-04-414723"
   source_image_family = "centos-stream-8"
-  image_name          = "packer-image"
   ssh_username        = "packer"
   zone                = "us-central1-a"
+  image_name          = "my-custom-image"
   // network     = "default"
   // subnetwork   = "default-subnet"
   // account_file = "packer-svc.json"
