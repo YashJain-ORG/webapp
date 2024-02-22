@@ -16,7 +16,7 @@ sudo dnf module -y enable nodejs:16
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
-echo "|                Install mysql-server and services             |"
+echo "|                Install Mysql-server and services             |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 
