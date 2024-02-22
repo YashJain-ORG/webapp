@@ -10,6 +10,10 @@ echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 sudo yum install nodejs npm -y
 
+sudo yum install -y nodejs gcc-c++ make
+sudo dnf module -y reset nodejs
+sudo dnf module -y enable nodejs:16
+
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
 echo "|                Install mysql-server and services             |"
@@ -26,7 +30,11 @@ echo "Enabling MySQL Service..."
 sudo systemctl enable mysqld
 
 echo "Installing npm..."
+
 sudo yum -y install nodejs npm
+sudo yum install -y nodejs gcc-c++ make
+sudo dnf module -y reset nodejs
+sudo dnf module -y enable nodejs:16
 
 
 echo "+-------------------------------------------------------------+"
@@ -55,6 +63,7 @@ echo "cp webapp to user home directory"
 sudo cp -r  webapp.zip /opt/csye6225
 
 cd /opt/csye6225
+
 echo "unzip in opt/csye6225"
 sudo unzip webapp.zip
 
@@ -67,9 +76,10 @@ echo "|                    Install Node Modules                     |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "cd to webapp to install node modules"
+
 cd /opt/csye6225/webapp
 
-sudo npm install npm@latest
+sudo npm install -y npm@latest
 
 echo "MySQL and npm installation completed."
 
