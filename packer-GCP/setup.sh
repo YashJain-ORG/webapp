@@ -58,7 +58,7 @@ sudo yum install -y unzip
 
 echo "check webapp in home directory"
 ls
-echo "cp webapp to user home directory"
+echo "cp web application to user home directory"
 
 sudo cp -r  webapp.zip /opt/csye6225
 
