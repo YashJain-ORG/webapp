@@ -1,6 +1,5 @@
 [Unit]
 Description=VM instence setup
-ConditionPathExists=/opt/application.properties
 After=network.target
 
 [Service]
