@@ -7,7 +7,7 @@ sudo yum update
 sudo yum -y install @mysql
 sudo systemctl start mysqld.service
 sudo systemctl enable mysqld
-mysql -u root -p'' -e "CREATE DATABASE cloud_assignment_db;"
+mysql -u root -p'' -e "CREATE DATABASE mydb;"
 sudo yum update
 sudo yum install unzip -y
 sudo groupadd csye6225
