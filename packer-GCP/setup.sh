@@ -72,7 +72,7 @@ ls
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
-echo "|                    Install Node Modules                     |"
+echo "|                    Install Node Modules for the project     |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "cd to webapp to install node modules"
