@@ -13,6 +13,7 @@ source "googlecompute" "example" {
   ssh_username        = "packer"
   zone                = "us-central1-a"
   image_name          = "my-custom-image"
+
 }
 
 build {

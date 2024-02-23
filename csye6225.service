@@ -7,8 +7,10 @@ After=network.target
 Type=simple
 User=csye6225
 Group=csye6225
+
 WorkingDirectory=/opt/csye6225/webapp
 ExecStart=node /opt/app/csye6225/webapp/index.js
+
 Restart=always
 RestartSec=3
 StandardOutput=syslog
