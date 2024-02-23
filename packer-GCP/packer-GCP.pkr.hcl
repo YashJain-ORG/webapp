@@ -13,9 +13,6 @@ source "googlecompute" "example" {
   ssh_username        = "packer"
   zone                = "us-central1-a"
   image_name          = "my-custom-image"
-  // network     = "default"
-  // subnetwork   = "default-subnet"
-  // account_file = "packer-svc.json"
 }
 
 build {
@@ -27,5 +24,9 @@ build {
 
   provisioner "shell" {
     script = "packer-GCP/setup.sh"
+  }
+
+  provisioner "shell" {
+    script = "packer-GCP/systemD.sh"
   }
 }
