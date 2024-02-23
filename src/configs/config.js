@@ -3,10 +3,10 @@ require('dotenv').config();
 
 //for MySQL
 const sequelize = new Sequelize(
-  process.env.DATABASE, //'mydb',
-  process.env.HOSTNAME, //'root',
-  process.env.PASSWORD,{ //'password', 
-  host: process.env.HOST,
+  'mydb',
+  'root',
+  '',{ 
+  host: '127.0.0.1',
   dialect: 'mysql',
   logging: false,
 });
