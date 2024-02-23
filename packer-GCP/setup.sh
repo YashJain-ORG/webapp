@@ -26,6 +26,7 @@ sudo systemctl start mysqld.service
 echo "Starting MySQL Service..."
 sudo systemctl start mysqld
 
+
 echo "Enabling MySQL Services....."
 sudo systemctl enable mysqld
 
@@ -35,6 +36,7 @@ sudo yum -y install nodejs npm
 sudo yum install -y nodejs gcc-c++ make
 sudo dnf module -y reset nodejs
 sudo dnf module -y enable nodejs:16
+
 
 
 echo "+-------------------------------------------------------------+"
@@ -58,7 +60,9 @@ sudo yum install -y unzip
 
 echo "check webapp in home directory"
 ls
+
 echo "cp web application to user home directory"
+
 
 sudo cp -r  webapp.zip /opt/csye6225
 
@@ -80,6 +84,7 @@ echo "cd to webapp to install node modules"
 cd /opt/csye6225/webapp
 
 sudo npm install -y npm@latest
+
 
 echo "MySQL and npm installation completed."
 
