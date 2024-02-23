@@ -26,7 +26,7 @@ sudo systemctl start mysqld.service
 echo "Starting MySQL Service..."
 sudo systemctl start mysqld
 
-echo "Enabling MySQL Service..."
+echo "Enabling MySQL Services....."
 sudo systemctl enable mysqld
 
 echo "Installing npm..."
