@@ -1,77 +1,29 @@
 #!/bin/bash
-
-echo "sudo yum update"
 sudo yum update
-
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                    Install NodeJS and NPM                   |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
-sudo yum install nodejs npm -y
-
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                Install mysql-server and services             |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
-
-sudo yum -y install mysql-server
+sudo yum install -y nodejs gcc-c++ make
+sudo dnf module -y reset nodejs
+sudo dnf module -y enable nodejs:16
+sudo yum update
+sudo yum -y install @mysql
 sudo systemctl start mysqld.service
-
-echo "Starting MySQL Service..."
-sudo systemctl start mysqld
-
-echo "Enabling MySQL Service..."
 sudo systemctl enable mysqld
-
-echo "Installing npm..."
-sudo yum -y install nodejs npm
-
-
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                creating user and groups                     |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
-echo "creating user and group"
+mysql -u root -p'' -e "CREATE DATABASE cloud_assignment_db;"
+sudo yum update
+sudo yum install unzip -y
 sudo groupadd csye6225
 sudo useradd -g csye6225 -d /opt/csye6225 -s /usr/sbin/nologin csye6225
-sudo chmod o+rx /opt/csye6225
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                Installing unzipp...                          |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
-echo "Installing unzip..."
-sudo yum install -y unzip
-
-# sudo -u csye6225 bash
-
-echo "check webapp in home directory"
-ls
-echo "cp webapp to user home directory"
-
+sudo yum install unzip
 sudo cp -r  webapp.zip /opt/csye6225
-
+sudo -u csye6225 bash
+sudo chown -R csye6225:csye6225 /opt/csye6225
+sudo chmod -R 750  /opt/csye6225
+sudo -u csye6225 bash
+sudo chmod o+rx /opt/csye6225
 cd /opt/csye6225
-echo "unzip in opt/csye6225"
 sudo unzip webapp.zip
-
-echo "----Checking if the file exists----"
-ls 
-
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                    Install Node Modules                     |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
-echo "cd to webapp to install node modules"
 cd /opt/csye6225/webapp
-
-sudo npm install -g npm@latest
-
-echo "MySQL and npm installation completed."
-
-
-
+sudo yum remove nodejs
+sudo yum install -y nodejs gcc-c++ make
+sudo dnf module -y reset nodejs
+sudo dnf module -y enable nodejs:16
+sudo npm install
