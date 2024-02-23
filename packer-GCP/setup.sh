@@ -39,7 +39,7 @@ sudo dnf module -y enable nodejs:16
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
-echo "|                creating user and groups                     |"
+echo "|                creating user and groups..                   |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "creating user and group"
