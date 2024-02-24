@@ -7,7 +7,7 @@ After=network.target
 WorkingDirectory=/opt/csye6225/webapp
 Type=simple
 User=csye6225
-ExecStart=/usr/bin/node /opt/csye6225/webapp/server.js
+ExecStart=/usr/bin/node /opt/csye6225/webapp/index.js
 Restart=always
 
 [Install]
