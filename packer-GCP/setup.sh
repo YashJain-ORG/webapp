@@ -1,15 +1,19 @@
 #!/bin/bash
 sudo yum update
+echo "Installing Nodejs"
 sudo yum install -y nodejs gcc-c++ make
 sudo dnf module -y reset nodejs
 sudo dnf module -y enable nodejs:16
 sudo yum update
+echo "Installing Mysql"
 sudo yum -y install @mysql
 sudo systemctl start mysqld.service
 sudo systemctl enable mysqld
 mysql -u root -p'' -e "CREATE DATABASE mydb;"
 sudo yum update
+echo "Installing unzip"
 sudo yum install unzip -y
+echo "Installing group and user added"
 sudo groupadd csye6225
 sudo useradd -g csye6225 -d /opt/csye6225 -s /usr/sbin/nologin csye6225
 sudo yum install unzip
