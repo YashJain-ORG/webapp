@@ -22,11 +22,14 @@
     "postgres": "^3.4.3",
     "sequelize": "^6.36.0"
   },
-  "description": "",
+  "description": "This project implements a user management API using Express.js and Sequelize ORM. The API provides endpoints to create users, update user information, and retrieve user details.",
   "devDependencies": {
     "chai": "^5.1.0",
     "jest": "^29.7.0",
     "mocha": "^10.3.0",
     "supertest": "^6.3.4"
+  },
+  "directories": {
+    "test": "tests"
   }
 }
