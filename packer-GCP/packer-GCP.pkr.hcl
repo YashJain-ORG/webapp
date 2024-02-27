@@ -7,11 +7,11 @@ packer {
   }
 }
 
-source "googlecompute" "example"   {
+source "googlecompute" "example" {
   project_id          = "assignment-04-414723"
   source_image_family = "centos-stream-8"
   ssh_username        = "packer"
-  zone                = "us-central1-a"
+  zon                = "us-central1-a"
   image_name          = "my-custom-image"
 
 }
