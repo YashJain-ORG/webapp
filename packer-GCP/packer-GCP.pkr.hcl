@@ -7,7 +7,7 @@ packer {
   }
 }
 
-source "googlecompute" "example" {
+source "googlecompute" "example"   {
   project_id          = "assignment-04-414723"
   source_image_family = "centos-stream-8"
   ssh_username        = "packer"
