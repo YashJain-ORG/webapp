@@ -1,4 +1,4 @@
-name: build.js
+name: Helloworld.js
 
 on:
   push:
