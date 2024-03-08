@@ -5,7 +5,7 @@ sudo yum install -y nodejs gcc-c++ make
 sudo dnf module -y reset nodejs
 sudo dnf module -y enable nodejs:16
 sudo yum update
-echo "Installing Mysql"
+echo "Installing Mysql service"
 sudo yum -y install @mysql
 sudo systemctl start mysqld.service
 sudo systemctl enable mysqld
