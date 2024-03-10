@@ -6,12 +6,12 @@ sudo dnf module -y reset nodejs
 sudo dnf module -y enable nodejs:16
 sudo yum update
 
-echo "Installing Mysql service"
+# echo "Installing Mysql service"
 
-sudo yum -y install @mysql
-sudo systemctl start mysqld.service
-sudo systemctl enable mysqld
-mysql -u root -p'' -e "CREATE DATABASE mydb;"
+# sudo yum -y install @mysql
+# sudo systemctl start mysqld.service
+# sudo systemctl enable mysqld
+# mysql -u root -p'' -e "CREATE DATABASE mydb;"
 sudo yum update
 echo "Installing unzip"
 sudo yum install unzip -y
