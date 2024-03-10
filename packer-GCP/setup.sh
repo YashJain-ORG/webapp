@@ -9,7 +9,8 @@ echo "Installing Mysql"
 sudo yum -y install @mysql
 sudo systemctl start mysqld.service
 sudo systemctl enable mysqld
-mysql -u root -p'' -e "CREATE DATABASE mydb;"
+mysql -u${{ secrets.DB_USER }} -p"${{ secrets.DB_PASSWORD }}" -e "CREATE DATABASE IF NOT EXISTS ${{ secrets.DB_NAME }};"
+mysql -u${{ secrets.DB_USER }} -p"${{ secrets.DB_PASSWORD }}" -e "USE ${{ secrets.DB_NAME }};" || exit 1
 sudo yum update
 echo "Installing unzip"
 sudo yum install unzip -y
