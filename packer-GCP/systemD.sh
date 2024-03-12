@@ -6,8 +6,9 @@ sudo -u csye6225 bash
 cd /opt/csye6225/webapp
 sudo cp csye6225.service /etc/systemd/system/
 sudo chown csye6225:csye6225 /etc/systemd/system/csye6225.service
+sudo chmod 750 /etc/systemd/system/csye6225.service
 sudo systemctl daemon-reload
-sudo systemctl start csye6225
-sudo systemctl enable csye6225
-sudo systemctl disable csye6225
+# sudo systemctl start csye6225
+# sudo systemctl enable csye6225
+# sudo systemctl disable csye6225
 sudo systemctl enable csye6225
