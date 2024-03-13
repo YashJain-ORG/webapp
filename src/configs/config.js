@@ -15,11 +15,11 @@ const { Sequelize } = require('sequelize');
 
 
 const sequelize = new Sequelize(
-  process.env.DB_NAME, // Use the DB_NAME from .env
-  process.env.DB_USER, // Use the DB_USER from .env
-  process.env.DB_PASSWORD, { // Use the DB_PASSWORD from .env
-    host: process.env.DB_HOST, // Use the DB_HOST from .env
-    dialect: process.env.DB_DIALECT, // Use the DB_DIALECT from .env
+  process.env.DB_NAME, 
+  process.env.DB_USER, 
+  process.env.DB_PASSWORD, { 
+    host: process.env.DB_HOST, 
+    dialect: process.env.DB_DIALECT, 
     logging: false,
   }
 );

@@ -1,4 +1,4 @@
-name: build.js
+name: IntegrationTest.js
 
 on:
   push:
