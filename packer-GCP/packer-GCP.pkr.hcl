@@ -30,4 +30,8 @@ build {
   provisioner "shell" {
     script = "packer-GCP/systemD.sh"
   }
+
+  provisioner "shell" {
+    script = "packer-GCP/install_ops_agent.sh"
+  }
 }

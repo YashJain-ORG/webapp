@@ -1,4 +1,4 @@
-name: build.js
+name: PackerBuild.js
 
 on:
   pull_request:
