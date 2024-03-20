@@ -1,32 +1,8 @@
-logging:
-  receivers:
-    my-app-receiver:
-      type: files
-      include_paths:
-        - /var/log/webapplog/myapp.log
-        - /var/log/syslog
-      record_log_file_path: true
-  processors:
-    my-app-processor:
-      type: parse_json
-      time_key: time
-      time_format: "%Y-%m-%dT%H:%M:%S.%L%Z"
-  service:
-    pipelines:
-      default_pipeline:
-        receivers: [my-app-receiver]
-        processors: [my-app-processor]
-# metrics:
-#   receivers:
-#     hostmetrics:
-#       type: hostmetrics
-#       collection_interval: 60s  
-#   processors:
-#   metrics_filter:
-#     type: exclude_metrics
-#     metrics_pattern:[]     
-#   service:
-#     pipelines:
-#       default_pipeline:
-#         receivers: [hostmetrics]
-#         processors: [metrics_filter]       
+sudo curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+sudo chmod 755 /etc/google-cloud-ops-agent/
+sudo mv /opt/webapp/packer-GCP/ops-config.yaml /etc/google-cloud-ops-agent/config.yaml
+sudo chmod 755 /etc/google-cloud-ops-agent/config.yaml
+sudo touch /var/log/myapp.log
+sudo chown csye6225:csye6225 /var/log/myapp.log
+sudo chmod 755 /var/log/myapp.log
