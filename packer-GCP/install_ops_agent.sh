@@ -16,17 +16,17 @@ logging:
       default_pipeline:
         receivers: [my-app-receiver]
         processors: [my-app-processor]
-metrics:
-  receivers:
-    hostmetrics:
-      type: hostmetrics
-      collection_interval: 60s  
-  processors:
-  metrics_filter:
-    type: exclude_metrics
-    metrics_pattern:[]     
-  service:
-    pipelines:
-      default_pipeline:
-        receivers: [hostmetrics]
-        processors: [metrics_filter]       
+# metrics:
+#   receivers:
+#     hostmetrics:
+#       type: hostmetrics
+#       collection_interval: 60s  
+#   processors:
+#   metrics_filter:
+#     type: exclude_metrics
+#     metrics_pattern:[]     
+#   service:
+#     pipelines:
+#       default_pipeline:
+#         receivers: [hostmetrics]
+#         processors: [metrics_filter]       
