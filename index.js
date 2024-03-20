@@ -15,9 +15,33 @@ app.use(bodyParser.json());
 
 var passHash;
 const bcrypt = require('bcryptjs');
+const winston = require('winston');
 //Create Table if Not Exist.. 
 //asdf
 db.sequelize.sync();
+
+//For Logging the information by winston start
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    new winston.transports.File({ filename: '/var/log/webapplog/myapp.log'}),
+  ],
+});
+
+logger.log({
+  level: 'info',
+  message: 'starting the server..',
+  timestamp: new Date().toISOString(),
+  host: process.env.DB_HOST,
+  port: "3000",
+  node_version: process.version,
+  process_id: process.pid,
+});
+
+//For Logging the information by winston end
 
 //************************ Healthz ******************************* */
 
