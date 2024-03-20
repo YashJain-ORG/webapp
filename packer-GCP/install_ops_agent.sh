@@ -7,3 +7,5 @@ sudo touch /var/log/webapplog/myapp.log
 sudo chown csye6225:csye6225 /var/log/webapplog/myapp.log
 sudo chmod 755 /var/log/webapplog/myapp.log
 # /var/log/webapplog/myapp.log
+
+
