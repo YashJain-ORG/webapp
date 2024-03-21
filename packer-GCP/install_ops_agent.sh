@@ -5,4 +5,4 @@ sudo mv /opt/csye6225/webapp/packer-GCP/ops-config.yaml /etc/google-cloud-ops-ag
 sudo chmod 755 /etc/google-cloud-ops-agent/config.yaml
 # sudo touch /var/log/myapp.log
 # sudo chown csye6225:csye6225 /var/log/myapp.log
-sudo chmod -R 755 /var/log/myapp.log 
+sudo chmod -R 755 /var/log
