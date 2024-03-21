@@ -4,7 +4,6 @@ logging:
       type: files
       include_paths:
         - var/log/myapp.log
-        - /var/log/syslog
       record_log_file_path: true
   processors:
     my-app-processor:
