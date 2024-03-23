@@ -27,12 +27,14 @@ const logger = winston.createLogger({
   format: winston.format.json(),
   defaultMeta: { service: 'user-service' },
   transports: [
-    new winston.transports.File({ filename: 'var/log/myapp.log'}),
+    new winston.transports.File({ filename: '/var/log/myapp.log'}),
+    // new winston.transports.File({ filename: '/Users/yashsmac/Desktop/CLOUD/Assignmnet-04/webapp-fork/myapp.log'}),
   ],
 });
 
 logger.log({
-  level: 'info',
+  level: 'INFO',
+  severity: 'INFO',
   message: 'starting the server..',
   timestamp: new Date().toISOString(),
   host: process.env.DB_HOST,

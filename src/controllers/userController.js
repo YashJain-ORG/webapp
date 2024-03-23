@@ -5,6 +5,17 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 const app = express();
+const winston = require('winston');
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    new winston.transports.File({ filename: '/var/log/myapp.log'}),
+    // new winston.transports.File({ filename: '/Users/yashsmac/Desktop/CLOUD/Assignmnet-04/webapp-fork/myapp.log'}),
+  ],
+});
 
 //create User
 function createUser(req, resp) {
@@ -52,6 +63,14 @@ function createUser(req, resp) {
   User.findOne({ where: { email: req.body.email } })
     .then(existingUser => {
       if (existingUser) {
+        logger.log({
+          level: 'ERROR',
+          severity: 'ERROR',
+          message: 'User with this email already exists',
+          timestamp: new Date().toISOString(),
+          host: process.env.DB_HOST,
+          port: "3000",
+        });
         return resp.status(400).json({ error: 'User with this email already exists' });
       }
 
@@ -82,6 +101,14 @@ function createUser(req, resp) {
             });
             console.log(data);
             console.log("Success part");
+            logger.log({
+              level: 'SUCCESS',
+              severity: 'SUCCESS',
+              message: 'user created successfully..',
+              timestamp: new Date().toISOString(),
+              host: process.env.DB_HOST,
+              port: "3000",
+            });
           })
           .catch(error => {
             resp.status(500).send(error);
@@ -167,6 +194,14 @@ const updateUser=(req,resp)=>{
       };
       User.update(updateData,
         {where:{email:username}}).then(()=>{
+          logger.log({
+            level: 'SUCCESS',
+            severity: 'SUCCESS',
+            message: 'user updated successfully..',
+            timestamp: new Date().toISOString(),
+            host: process.env.DB_HOST,
+            port: "3000",
+          });
           resp.status(204).json({
             Message: `User Updated successfully!!  ${username}`
           });
