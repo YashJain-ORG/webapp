@@ -47,6 +47,7 @@ jobs:
           PASSWORD: root
           DATABASE: ${{secrets.DATABASE}}
           PORT: 3000
+          test: Testenv
         run: |
           echo "npm test"
 

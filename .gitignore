@@ -24,3 +24,8 @@ yarn.lock
 # OS generated files
 .DS_Store
 Thumbs.db
+
+#logging files
+myapp.log
+
+ops-config.yaml

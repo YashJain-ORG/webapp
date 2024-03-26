@@ -5,29 +5,30 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 const app = express();
-const winston = require('winston');
+const logger = require('../../logger.js');
+// const winston = require('winston');
 
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  defaultMeta: { service: 'user-service' },
-  transports: [
-    new winston.transports.File({ filename: './myapp.log'}),
-    // new winston.transports.File({ filename: '/Users/yashsmac/Desktop/CLOUD/Assignmnet-04/webapp-fork/myapp.log'}),
-  ],
-});
+// const logger = winston.createLogger({
+//   level: 'info',
+//   format: winston.format.json(),
+//   defaultMeta: { service: 'user-service' },
+//   transports: [
+//     new winston.transports.File({ filename: './myapp.log'}),
+//     // new winston.transports.File({ filename: '/Users/yashsmac/Desktop/CLOUD/Assignmnet-04/webapp-fork/myapp.log'}),
+//   ],
+// });
 
 //create User
 function createUser(req, resp) {
-  console.log('inside create User');
+  //console.log('inside create User');
   //console.log(req);
   const allowedParams = ['email', 'password', 'lastName', 'firstName'];
 
   // Checking if the request body contains only allowed parametersasd
   const additionalParams = Object.keys(req.body).filter(key => !allowedParams.includes(key));
-  console.log(additionalParams);
+  //console.log(additionalParams);
   if (additionalParams.length > 0) {
-    console.log("Error part - Invalid parameters:", additionalParams);
+    //console.log("Error part - Invalid parameters:", additionalParams);
     return resp.status(400).send({
       Message: "Invalid parameters in the request body"
     });
@@ -35,7 +36,7 @@ function createUser(req, resp) {
 
   // Checking if all required fields are provided and not empty
   if (!req.body.firstName || !req.body.lastName || !req.body.password || !req.body.email) {
-    console.log("Error part - Missing required data");
+    //console.log("Error part - Missing required data");
     return resp.status(400).send({
       Message: "Please provide all required data!"
     });
@@ -44,7 +45,8 @@ function createUser(req, resp) {
   // Validating email format using a regular expression
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(req.body.email)) {
-    console.log("email")
+    //console.log("email")
+    logger.warn("Invalid email format");
     return resp.status(400).send({
       Message: "Invalid email format"
     });
@@ -53,7 +55,8 @@ function createUser(req, resp) {
   // Validating password format (at least 8 characters long and containing at least one uppercase letter, one lowercase letter, one digit, and one special character)
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   if (!passwordRegex.test(req.body.password)) {
-    console.log("pass")
+    //console.log("pass")
+    logger.warn("Invalid Password format");
     return resp.status(400).send({
       Message: "Invalid password format"
     });
@@ -63,14 +66,7 @@ function createUser(req, resp) {
   User.findOne({ where: { email: req.body.email } })
     .then(existingUser => {
       if (existingUser) {
-        logger.log({
-          level: 'ERROR',
-          severity: 'ERROR',
-          message: 'User with this email already exists',
-          timestamp: new Date().toISOString(),
-          host: process.env.DB_HOST,
-          port: "3000",
-        });
+        logger.error("Invalid email already exists");
         return resp.status(400).json({ error: 'User with this email already exists' });
       }
 
@@ -99,16 +95,17 @@ function createUser(req, resp) {
               account_created: data.account_created,
               account_updated: data.account_updated
             });
-            console.log(data);
-            console.log("Success part");
-            logger.log({
-              level: 'SUCCESS',
-              severity: 'SUCCESS',
-              message: 'user created successfully..',
-              timestamp: new Date().toISOString(),
-              host: process.env.DB_HOST,
-              port: "3000",
-            });
+            // console.log(data);
+            // console.log("Success part");
+            logger.info("User created successfully..");
+            // logger.log({
+            //   level: 'SUCCESS',
+            //   severity: 'SUCCESS',
+            //   message: 'user created successfully..',
+            //   timestamp: new Date().toISOString(),
+            //   host: process.env.DB_HOST,
+            //   port: "3000",
+            // });
           })
           .catch(error => {
             resp.status(500).send(error);
@@ -118,7 +115,7 @@ function createUser(req, resp) {
     })
     .catch(error => {
       resp.status(500).send(error);
-      console.log(error);
+      //console.log(error);
     });
 }
 
@@ -129,11 +126,11 @@ const searchUser = (req, resp) => {
     const credentials = Buffer.from(req.get('Authorization').split(' ')[1], 'base64').toString().split(':');
     const username = credentials[0];
     const password = credentials[1];
-    console.log(username);
-    console.log(password);
+    // console.log(username);
+    // console.log(password);
     // Validate username and password
     if (!username || !password || username.trim() === '' || password.trim() === '') {
-      console.log('validate');
+      //console.log('validate');
       return resp.status(400).send({ message: 'Username or password missing or empty' });
     }
 
@@ -141,9 +138,11 @@ const searchUser = (req, resp) => {
       attributes: ['id', 'firstName', 'lastName', 'email', 'account_created','account_updated'],
     }).then(data => {
       if (!data) {
-        console.log("chceking data");
+       // console.log("chceking data");
+        logger.error("User not found..");
         return resp.status(404).send({ message: 'User not found' });
       }
+      logger.info("User found..");
       resp.status(200).send(data);
     }).catch(error => {
       console.error(error);
@@ -152,6 +151,7 @@ const searchUser = (req, resp) => {
 
   } catch (error) {
     console.error(error);
+    logger.error("Bad request..");
     resp.status(400).send({ message: 'Bad request' });
   }
 };
@@ -161,9 +161,9 @@ const updateUser=(req,resp)=>{
   var credentials = Buffer.from(req.get('Authorization').split(' ')[1], 'base64').toString().split(':');
   var username = credentials[0];
   var password = credentials[1];
-  console.log(username);
-  console.log("update User")
-  console.log(password);
+  // console.log(username);
+  // console.log("update User")
+  // console.log(password);
   if (!password || password.trim() === '') {
     return resp.status(400).send({ message: 'Password is missing or empty' });
   }
@@ -184,7 +184,7 @@ const updateUser=(req,resp)=>{
         console.error('Error hashing password:', err);
         return resp.status(500).send('Internal Server Error');
       }
-      console.log("testing")
+      //console.log("testing")
       const currentDate = new Date();
       const updateData = {
         firstName: req.body.firstName,
@@ -194,14 +194,15 @@ const updateUser=(req,resp)=>{
       };
       User.update(updateData,
         {where:{email:username}}).then(()=>{
-          logger.log({
-            level: 'SUCCESS',
-            severity: 'SUCCESS',
-            message: 'user updated successfully..',
-            timestamp: new Date().toISOString(),
-            host: process.env.DB_HOST,
-            port: "3000",
-          });
+          // logger.log({
+          //   level: 'SUCCESS',
+          //   severity: 'SUCCESS',
+          //   message: 'user updated successfully..',
+          //   timestamp: new Date().toISOString(),
+          //   host: process.env.DB_HOST,
+          //   port: "3000",
+          // });
+          logger.info("User Updated successfully..");
           resp.status(204).json({
             Message: `User Updated successfully!!  ${username}`
           });
