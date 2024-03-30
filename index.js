@@ -23,6 +23,8 @@ const bcrypt = require('bcryptjs');
 //asdf
 db.sequelize.sync();
 
+
+
 //For Logging the information by winston start
 
 // const logger = winston.createLogger({
@@ -120,6 +122,21 @@ app.all('/v1/user', async(req,resp)=>{
   return resp.status(405).send();
 })
 //******************** END Create user **********************************  */
+
+//*********************** Verify User ******************************
+app.get('/verify/:id',async(req,resp)=>{
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+    await controller.verifyUser(req, resp);
+  } catch (error) {
+    console.error(error.message);
+    resp.status(503).send();
+  }
+});
+
+//*********************** Verify User End ******************************
+
 
 
 

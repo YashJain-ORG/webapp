@@ -6,17 +6,12 @@ const saltRounds = 10;
 
 const app = express();
 const logger = require('../../logger.js');
-// const winston = require('winston');
+const {PubSub} = require('@google-cloud/pubsub');
 
-// const logger = winston.createLogger({
-//   level: 'info',
-//   format: winston.format.json(),
-//   defaultMeta: { service: 'user-service' },
-//   transports: [
-//     new winston.transports.File({ filename: './myapp.log'}),
-//     // new winston.transports.File({ filename: '/Users/yashsmac/Desktop/CLOUD/Assignmnet-04/webapp-fork/myapp.log'}),
-//   ],
-// });
+const projectId = 'assignment-04-414723';
+const pubSubClient = new PubSub({ projectId });
+const topicNameOrId = 'verify_email';
+
 
 //create User
 function createUser(req, resp) {
@@ -83,7 +78,7 @@ function createUser(req, resp) {
           email: req.body.email,
           password: hash
         };
-
+        var userPayload;
         // Creating the user in the databases
         User.create(userObject)
           .then(data => {
@@ -95,17 +90,25 @@ function createUser(req, resp) {
               account_created: data.account_created,
               account_updated: data.account_updated
             });
-            // console.log(data);
-            // console.log("Success part");
-            logger.info("User created successfully..");
-            // logger.log({
-            //   level: 'SUCCESS',
-            //   severity: 'SUCCESS',
-            //   message: 'user created successfully..',
-            //   timestamp: new Date().toISOString(),
-            //   host: process.env.DB_HOST,
-            //   port: "3000",
-            // });
+            //console.log(data);
+            console.log("Success part");
+            userPayload = {
+              username: data.email,
+              id: data.id
+            };
+            console.log("userPayload:", userPayload); // Add this line for logging
+            pubSubClient
+              .topic(topicNameOrId)
+              .publishJSON(userPayload)
+              .then(function(messageId) {
+                console.log('Message ' + messageId + ' published.');
+                logger.info("User created successfully.");
+              })
+              .catch(function(error) {
+                console.error('Error publishing message:', error);
+              });
+            
+            
           })
           .catch(error => {
             resp.status(500).send(error);
@@ -142,8 +145,13 @@ const searchUser = (req, resp) => {
         logger.error("User not found..");
         return resp.status(404).send({ message: 'User not found' });
       }
+      if(data.isVerified==true){
       logger.info("User found..");
       resp.status(200).send(data);
+      }else{
+        logger.warn("User not verified..");
+        resp.status(400).send({ message: 'User not verified' });
+      }
     }).catch(error => {
       console.error(error);
       resp.status(500).send({ message: 'Internal server error' });
@@ -192,16 +200,9 @@ const updateUser=(req,resp)=>{
         password: hash,
         account_updated:currentDate
       };
+      if(User.isVerified==true)
       User.update(updateData,
         {where:{email:username}}).then(()=>{
-          // logger.log({
-          //   level: 'SUCCESS',
-          //   severity: 'SUCCESS',
-          //   message: 'user updated successfully..',
-          //   timestamp: new Date().toISOString(),
-          //   host: process.env.DB_HOST,
-          //   port: "3000",
-          // });
           logger.info("User Updated successfully..");
           resp.status(204).json({
             Message: `User Updated successfully!!  ${username}`
@@ -212,4 +213,62 @@ const updateUser=(req,resp)=>{
   });
 }
 
-module.exports = {createUser, searchUser,updateUser}
+const verifyUser = (req, resp) => {
+  try {
+
+    var id = req.params.id;
+    console.log(id);
+    if (!id) {
+      logger.error('UUID missing');
+      console.log("UUID missing");
+      return resp.status(400).json({ message: "Username or UUID missing" });
+    }
+
+    User.findOne({
+      where: {
+        id: id // Use the attribute you want to search by
+      }
+    }).then(data => {
+      //console.log(data);
+      if (!data) {
+        logger.error("User not found..");
+        return resp.status(404).send({ message: 'User not found' });
+      }
+
+      if (!data.email_sent_time) {
+        logger.warn('Verification process not initiated for this user.');
+        return resp.status(400).send('Verification process not initiated for this user.');
+      }
+  
+      const currentTime = new Date();
+      const timeElapsed = currentTime - new Date(data.email_sent_time);
+  
+      if (timeElapsed <= 2 * 60 * 1000) {
+        // Update user's verification status and verification time
+        data.isVerified = true;
+        data.link_verified_time = currentTime;
+        data.save();
+  
+        logger.info('User email verified successfully.');
+        return resp.send('Your email has been successfully verified.');
+      } else {
+        logger.warn('Verification link has expired.');
+        return resp.status(400).send('Verification link has expired.');
+      }
+    }).catch(error => {
+      console.error(error);
+      resp.status(500).send({ message: 'Internal server error' });
+    });
+
+  } catch (error) {
+    console.error(error);
+    logger.error("Bad request..");
+    resp.status(400).send({ message: 'Bad request' });
+  }
+};
+
+
+
+
+
+module.exports = {createUser, searchUser,updateUser,verifyUser}
