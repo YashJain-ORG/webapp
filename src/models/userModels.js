@@ -37,6 +37,22 @@ module.exports=(sequelize,Sequelize)=>{
       defaultValue: Sequelize.NOW,
       allowNull: false,
     },
+    email_sent_time: {
+      type: Sequelize.DATE,
+      allowNull: true,
+    },
+    link_verified_time: {
+      type: Sequelize.DATE,
+      allowNull: true,
+    },
+    isVerified: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false, // assuming default value is false
+    },
+  },
+  {
+    timestamps: false,
   });
 
   return Users;
