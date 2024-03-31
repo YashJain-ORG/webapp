@@ -138,7 +138,7 @@ const searchUser = (req, resp) => {
     }
 
     User.findByPk(username, {
-      attributes: ['id', 'firstName', 'lastName', 'email', 'account_created','account_updated'],
+      attributes: ['id', 'firstName', 'lastName', 'email', 'account_created','account_updated', 'isVerified'],
     }).then(data => {
       if (!data) {
        // console.log("chceking data");
@@ -268,3 +268,4 @@ const verifyUser = (req, resp) => {
 };
 
 module.exports = {createUser, searchUser,updateUser,verifyUser}
+
