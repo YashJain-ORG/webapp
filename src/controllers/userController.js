@@ -138,7 +138,9 @@ const searchUser = (req, resp) => {
     }
 
     User.findByPk(username, {
+
       attributes: ['id', 'firstName', 'lastName', 'email', 'account_created','account_updated','isVerified'],
+
     }).then(data => {
       console.log(data);
       if (!data) {
@@ -146,8 +148,7 @@ const searchUser = (req, resp) => {
         logger.error("User not found..");
         return resp.status(404).send({ message: 'User not found' });
       }
-      console.log('tesinng data')
-      console.log(data.isVerified);
+
       if(data.isVerified==true){
       logger.info("User found..");
       resp.status(200).send(data);
@@ -172,6 +173,7 @@ const updateUser=(req,resp)=>{
   var credentials = Buffer.from(req.get('Authorization').split(' ')[1], 'base64').toString().split(':');
   var username = credentials[0];
   var password = credentials[1];
+
   if (!password || password.trim() === '') {
     return resp.status(400).send({ message: 'Password is missing or empty' });
   }
@@ -200,6 +202,7 @@ const updateUser=(req,resp)=>{
         password: hash,
         account_updated:currentDate
       };
+
       console.log(User);
       User.findOne({
         where: {
@@ -246,6 +249,7 @@ const updateUser=(req,resp)=>{
       //   }).catch(error=>{
       //     resp.status(500).send(error);
       //   })   
+
   });
 }
 
@@ -303,8 +307,5 @@ const verifyUser = (req, resp) => {
   }
 };
 
-
-
-
-
 module.exports = {createUser, searchUser,updateUser,verifyUser}
+

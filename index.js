@@ -22,9 +22,6 @@ const bcrypt = require('bcryptjs');
 //Create Table if Not Exist.. 
 //asdf
 db.sequelize.sync();
-
-
-
 //For Logging the information by winston start
 
 // const logger = winston.createLogger({
