@@ -154,7 +154,7 @@ const searchUser = (req, resp) => {
       resp.status(200).send(data);
       }else{
         logger.warn("User not verified..");
-        resp.status(400).send({ message: 'User not verified' });
+        resp.status(403).send({ message: 'User not verified' });
       }
     }).catch(error => {
       console.error(error);
@@ -231,6 +231,9 @@ const updateUser=(req,resp)=>{
             }).catch(error=>{
               resp.status(500).send(error);
             })  
+        }else{
+          logger.warn("User not verified..");
+          resp.status(403).send({ message: 'User not verified' });
         }
         
       }).catch(error => {
