@@ -49,7 +49,7 @@ jobs:
         id: packer_build
         run: |
           echo "Running packer build"
-          #packer build ./packer-GCP/packer-GCP.pkr.hcl
+          packer build ./packer-GCP/packer-GCP.pkr.hcl
 
       - name: create New Instance Template
         id: instance-templates
