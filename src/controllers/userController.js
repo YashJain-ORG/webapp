@@ -138,19 +138,22 @@ const searchUser = (req, resp) => {
     }
 
     User.findByPk(username, {
-      attributes: ['id', 'firstName', 'lastName', 'email', 'account_created','account_updated', 'isVerified'],
+      attributes: ['id', 'firstName', 'lastName', 'email', 'account_created','account_updated','isVerified'],
     }).then(data => {
+      console.log(data);
       if (!data) {
        // console.log("chceking data");
         logger.error("User not found..");
         return resp.status(404).send({ message: 'User not found' });
       }
+      console.log('tesinng data')
+      console.log(data.isVerified);
       if(data.isVerified==true){
       logger.info("User found..");
       resp.status(200).send(data);
       }else{
         logger.warn("User not verified..");
-        resp.status(400).send({ message: 'User not verified' });
+        resp.status(403).send({ message: 'User not verified' });
       }
     }).catch(error => {
       console.error(error);
@@ -169,9 +172,6 @@ const updateUser=(req,resp)=>{
   var credentials = Buffer.from(req.get('Authorization').split(' ')[1], 'base64').toString().split(':');
   var username = credentials[0];
   var password = credentials[1];
-  // console.log(username);
-  // console.log("update User")
-  // console.log(password);
   if (!password || password.trim() === '') {
     return resp.status(400).send({ message: 'Password is missing or empty' });
   }
@@ -200,16 +200,55 @@ const updateUser=(req,resp)=>{
         password: hash,
         account_updated:currentDate
       };
-      if(User.isVerified==true)
-      User.update(updateData,
-        {where:{email:username}}).then(()=>{
-          logger.info("User Updated successfully..");
-          resp.status(204).json({
-            Message: `User Updated successfully!!  ${username}`
-          });
-        }).catch(error=>{
-          resp.status(500).send(error);
-        })   
+      console.log(User);
+      User.findOne({
+        where: {
+          isVerified: true // Use the attribute you want to search by
+        }
+      }).then(data => {
+        console.log(data);
+        if (!data) {
+          logger.error("User not found..");
+          return resp.status(404).send({ message: 'User not found' });
+        }
+  
+        // if (!data.email_sent_time) {
+        //   logger.warn('Verification process not initiated for this user.');
+        //   return resp.status(400).send('Verification process not initiated for this user.');
+        // }
+        console.log("testing user update is verifyed")
+        console.log(data.isVerified);
+        if(data.isVerified==true){
+          User.update(updateData,
+            {where:{email:username}}).then(()=>{
+              logger.info("User Updated successfully..");
+              resp.status(204).json({
+                Message: `User Updated successfully!!  ${username}`
+              });
+            }).catch(error=>{
+              resp.status(500).send(error);
+            })  
+        }else{
+          logger.warn("User not verified..");
+          resp.status(403).send({ message: 'User not verified' });
+        }
+        
+      }).catch(error => {
+        console.error(error);
+        resp.status(500).send({ message: 'Internal server error' });
+      });
+      // console.log("testing user update")
+      // console.log(User.isVerified);
+      // if(User.isVerified==true)
+      // User.update(updateData,
+      //   {where:{email:username}}).then(()=>{
+      //     logger.info("User Updated successfully..");
+      //     resp.status(204).json({
+      //       Message: `User Updated successfully!!  ${username}`
+      //     });
+      //   }).catch(error=>{
+      //     resp.status(500).send(error);
+      //   })   
   });
 }
 
@@ -267,5 +306,5 @@ const verifyUser = (req, resp) => {
   }
 };
 
-module.exports = {createUser, searchUser,updateUser,verifyUser}
 
+module.exports = {createUser, searchUser,updateUser,verifyUser}

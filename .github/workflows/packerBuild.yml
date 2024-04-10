@@ -50,3 +50,18 @@ jobs:
         run: |
           echo "Running packer build"
           packer build ./packer-GCP/packer-GCP.pkr.hcl
+
+      - name: create New Instance Template
+        id: instance-templates
+        run: |
+          gcloud compute instance-templates create ${{secrets.INSTANCE_TEMP_NAME}} --project=assignment-04-414723 --machine-type=n1-standard-1 --network-interface=subnet=webapp,no-address --metadata=startup-script=sudo\ bash\ -c\ \'cat\ \>\ /opt/csye6225/webapp/.env\ \<\<EOT$'\n'DB_USER=webapp$'\n'DB_DIALECT=mysql$'\n'DB_NAME=webapp$'\n'DB_PASSWORD=${{secrets.GCP_INST_DB_PASSWORD}}$'\n'DB_HOST=${{secrets.GCP_DB_HOST}}$'\n'PORT=3306$'\n'EOT\'$'\n' --maintenance-policy=MIGRATE --provisioning-model=STANDARD --service-account=webapp-service-account-id@assignment-04-414723.iam.gserviceaccount.com --scopes=https://www.googleapis.com/auth/cloud-platform --region=us-central1 --tags=webapp,allow-health-check --create-disk=auto-delete=yes,boot=yes,device-name=persistent-disk-0,image=projects/assignment-04-414723/global/images/my-custom-image,kms-key=projects/assignment-04-414723/locations/us-central1/keyRings/${{secrets.KRING}}/cryptoKeys/vm-key,mode=rw,size=100,type=pd-standard --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
+
+      - name: create managed instance group
+        id: instance-group-templates
+        run: |
+          gcloud compute instance-groups managed rolling-action start-update ${{secrets.INSTANCE_GROUP_NAME}} --version=template=${{secrets.INSTANCE_TEMP_NAME}} --region=us-central1 --max-surge=0 --replacement-method=recreate
+
+      - name: wait for managed instance group to refresh
+        id: wait-for-managed-instance-group-to-refresh
+        run: |
+          gcloud compute instance-groups managed wait-until ${{secrets.INSTANCE_GROUP_NAME}} --version-target-reached --region=us-central1
