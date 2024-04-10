@@ -24,6 +24,7 @@ const bcrypt = require('bcryptjs');
 db.sequelize.sync();
 
 
+
 //For Logging the information by winston start
 
 // const logger = winston.createLogger({
