@@ -59,7 +59,7 @@ jobs:
       - name: create managed instance group
         id: instance-group-templates
         run: |
-          gcloud compute instance-groups managed rolling-action start-update ${{secrets.INSTANCE_GROUP_NAME}} --version=template=ass4-instance-20240410-041314911 --region=us-central1
+          gcloud compute instance-groups managed rolling-action start-update ${{secrets.INSTANCE_GROUP_NAME}} --version=template=${{secrets.INSTANCE_TEMP_NAME}} --region=us-central1
 
       - name: wait for managed instance group to refresh
         id: wait-for-managed-instance-group-to-refresh
