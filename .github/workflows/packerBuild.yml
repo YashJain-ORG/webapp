@@ -54,12 +54,12 @@ jobs:
       - name: create New Instance Template
         id: instance-templates
         run: |
-          gcloud compute instance-templates create ass4-instance-20240410-04131499 --project=assignment-04-414723 --machine-type=n1-standard-1 --network-interface=subnet=webapp,no-address --metadata=startup-script=sudo\ bash\ -c\ \'cat\ \>\ /opt/csye6225/webapp/.env\ \<\<EOT$'\n'DB_USER=webapp$'\n'DB_DIALECT=mysql$'\n'DB_NAME=webapp$'\n'DB_PASSWORD=IRXCR\(\(U$'\n'DB_HOST=10.79.208.2$'\n'PORT=3306$'\n'EOT\'$'\n' --maintenance-policy=MIGRATE --provisioning-model=STANDARD --service-account=webapp-service-account-id@assignment-04-414723.iam.gserviceaccount.com --scopes=https://www.googleapis.com/auth/cloud-platform --region=us-central1 --tags=webapp,allow-health-check --create-disk=auto-delete=yes,boot=yes,device-name=persistent-disk-0,image=projects/assignment-04-414723/global/images/my-custom-image,kms-key=projects/assignment-04-414723/locations/us-central1/keyRings/keyRing123/cryptoKeys/vm-key,mode=rw,size=100,type=pd-standard --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
+          gcloud compute instance-templates create ass4-instance-20240410-041314911 --project=assignment-04-414723 --machine-type=n1-standard-1 --network-interface=subnet=webapp,no-address --metadata=startup-script=sudo\ bash\ -c\ \'cat\ \>\ /opt/csye6225/webapp/.env\ \<\<EOT$'\n'DB_USER=webapp$'\n'DB_DIALECT=mysql$'\n'DB_NAME=webapp$'\n'DB_PASSWORD=IRXCR\(\(U$'\n'DB_HOST=10.79.208.2$'\n'PORT=3306$'\n'EOT\'$'\n' --maintenance-policy=MIGRATE --provisioning-model=STANDARD --service-account=webapp-service-account-id@assignment-04-414723.iam.gserviceaccount.com --scopes=https://www.googleapis.com/auth/cloud-platform --region=us-central1 --tags=webapp,allow-health-check --create-disk=auto-delete=yes,boot=yes,device-name=persistent-disk-0,image=projects/assignment-04-414723/global/images/my-custom-image,kms-key=projects/assignment-04-414723/locations/us-central1/keyRings/keyRing123/cryptoKeys/vm-key,mode=rw,size=100,type=pd-standard --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
 
       - name: create managed instance group
         id: instance-group-templates
         run: |
-          gcloud compute instance-groups managed rolling-action start-update lb-backend-example --version=template=ass4-instance-20240410-04131499 --region=us-central1
+          gcloud compute instance-groups managed rolling-action start-update lb-backend-example --version=template=ass4-instance-20240410-041314911 --region=us-central1
 
       - name: wait for managed instance group to refresh
         id: wait-for-managed-instance-group-to-refresh
