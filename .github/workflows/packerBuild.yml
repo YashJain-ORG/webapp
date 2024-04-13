@@ -50,4 +50,5 @@ jobs:
         run: |
           echo "Running packer build"
           packer build ./packer-GCP/packer-GCP.pkr.hcl
-          # echo "done with packer building"
+          echo "done with packer building"
+
