@@ -11,6 +11,7 @@ if (process.env.test === 'Testenv') {
 } else {
     //var filePath = process.env.LOG_FILE_PATH || 'myapp.log';
     var filePath = process.env.LOG_FILE_PATH || '/var/log/myapp.log';
+
     var logStream = fs.createWriteStream(filePath, { flags: 'a' });
     logger = new Logger({ stream: logStream });
 
