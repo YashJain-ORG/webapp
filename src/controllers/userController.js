@@ -307,4 +307,7 @@ const verifyUser = (req, resp) => {
 };
 
 
+
+
+
 module.exports = {createUser, searchUser,updateUser,verifyUser}
