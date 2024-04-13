@@ -70,7 +70,7 @@ app.get('/healthz',helthMiddle.checkRequestBody,helthMiddle.checkUrlz,helthMiddl
 //************************ Healthz END ******************************* */
 
 //*********************** Search User ******************************
-app.get('/v1/user/self',authMiddle.checkUrlz,authMiddle.authenticationMiddleware,async(req,resp)=>{
+app.get('/v2/user/self',authMiddle.checkUrlz,authMiddle.authenticationMiddleware,async(req,resp)=>{
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
@@ -85,7 +85,7 @@ app.get('/v1/user/self',authMiddle.checkUrlz,authMiddle.authenticationMiddleware
 
 //*************************** Update User ********************************
 
-app.put('/v1/user/self',authMiddle.authenticationMiddleware,async(req,resp)=>{
+app.put('/v2/user/self',authMiddle.authenticationMiddleware,async(req,resp)=>{
   try {
     console.log("update User");
     await sequelize.authenticate();
@@ -98,15 +98,15 @@ app.put('/v1/user/self',authMiddle.authenticationMiddleware,async(req,resp)=>{
 })
 
 //For chceking and handling the http method
-app.all('/v1/user/self', async(req,resp)=>{
+app.all('/v2/user/self', async(req,resp)=>{
   return resp.status(405).send();
 })
 
-//*************************** Update User END ********************************
-
+//****************************** Update User END ********************************
+// testing
 //****************Create new User ************************
 
-app.post('/v1/user',authMiddle.checkUrl, async (req, resp) => {
+app.post('/v2/user',authMiddle.checkUrl, async (req, resp) => {
   try {
     console.log("post here");
     await sequelize.authenticate();
@@ -118,7 +118,7 @@ app.post('/v1/user',authMiddle.checkUrl, async (req, resp) => {
   }
 });
 //For chceking and handling the http method
-app.all('/v1/user', async(req,resp)=>{
+app.all('/v2/user', async(req,resp)=>{
   return resp.status(405).send();
 })
 //******************** END Create user **********************************  */
