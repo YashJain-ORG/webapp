@@ -13,7 +13,6 @@ if (process.env.test === 'Testenv') {
     var filePath = process.env.LOG_FILE_PATH || '/var/log/myapp.log';
     var logStream = fs.createWriteStream(filePath, { flags: 'a' });
     logger = new Logger({ stream: logStream });
-
     // Redirecting stdout and stderr to logStream
     process.stdout.write = logStream.write.bind(logStream);
     process.stderr.write = logStream.write.bind(logStream);
